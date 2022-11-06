@@ -66,19 +66,26 @@ const onSubmitHandler = async(e)=>{
 
   return (
     <div className="w-screen block">
-      <Container className=''>
-      <div className=" text-xl md:text-3xl my-6 md:my-12 flex  place-content-between"> 
-      <div className=''>NGENI BONUS DAPP</div>
-      <Link to="/login" ><div className=''><Button variant='contained'>Pay Up</Button> </div></Link>
+      {/* <Container className='w-full'> */}
+<div className='w-screen bg-black'>
+  <div className=" flex  place-content-between py-4"> 
+      <div className='text-red-500 py-4 text-3xl text-sans font-bold ml-4'>NGENI BONUS DAPP</div>
+<div>
+<Link to="/login" >
+        <div className='mr-4 mt-4'><button className='py-2 px-4 bg-red-500 rounded-md text-normal'>Pay Up</button>
+         </div>
+      </Link>
+</div>
    
       </div>
-<div className='pb-16 pt-8'>
-  <form onSubmit={onSubmitHandler}>
+      </div>
+<Container maxWidth='xl' className='pb-16 pt-8 w-screen '>
+  <form onSubmit={onSubmitHandler} className=" mx-auto">
 
 <div className='w-screen mx-auto flex py-8'>
 <label className='text-base mr-8 w-36' >Name:</label>
 <input 
-className='outline-none bg-slate-50 py-4 px-2 rounded-sm'
+className='outline-none bg-slate-50 py-4 px-8 rounded-sm '
   type="text"
   name="name"
   onChange={onHandleNameChange}
@@ -89,7 +96,7 @@ className='outline-none bg-slate-50 py-4 px-2 rounded-sm'
 <div className='w-screen mx-auto flex py-8'>
 <label className='text-base mr-8 w-36' >Wallet_Address:</label>
 <input 
-className='outline-none bg-slate-50 py-4 px-2 rounded-sm'
+className='outline-none bg-slate-50 py-4 px-8 rounded-sm'
   type="text"
   name="address"
   onChange={onHandleAddressChange}
@@ -100,7 +107,7 @@ className='outline-none bg-slate-50 py-4 px-2 rounded-sm'
 <div className='w-screen mx-auto flex py-8'>
 <label className='text-base mr-8 w-36' >Amount:</label>
 <input 
-className='outline-none bg-slate-50 py-4 px-2 rounded-sm'
+className='outline-none bg-slate-50 py-4 px-8 rounded-sm'
   type="text"
   name="amount"
   onChange={onHandleAmountChange}
@@ -108,11 +115,11 @@ className='outline-none bg-slate-50 py-4 px-2 rounded-sm'
   />
   </div>
 <div className='w-full place-items-center flex justify-items-stretch '>
-<input type="submit" value="Add" className='bg-slate-300 py-2 px-8 rounded-md mx-auto justify-self-center' />
+<input type="submit" value="Add" className='bg-red-500 py-2 px-8 rounded-md mx-auto justify-self-center' />
 </div>
 </form>
-</div>
-      </Container>
+</Container>
+      {/* </Container> */}
 
 <Home employees= {employees} />
 

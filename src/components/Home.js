@@ -7,6 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { ConnectWallet } from "@thirdweb-dev/react";
+
 
 import '../styles/global.css'
 import { Button } from '@mui/material';
@@ -15,7 +17,7 @@ import { Button } from '@mui/material';
 function Home({employees}) {
 
   return (
- 
+   
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 0 }} aria-label="simple table">
             <TableHead>
@@ -45,6 +47,9 @@ function Home({employees}) {
             </TableBody>
           </Table>
         </TableContainer>
+
+      
+
       );
     }
     

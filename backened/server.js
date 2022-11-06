@@ -12,8 +12,13 @@ const jwt = require('jsonwebtoken');
 const withAuth = require('./middleware')
 var bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
+let build = 'build';
+console.log(path.join(__dirname, '..',build))
+
 
 //MIDDLEWARES...
+app.use(express.static(path.join(__dirname, '..',build)));
 app.use(cors({origin: true, credentials: true}));
 app.use(express.urlencoded({extended: true}))
 app.use(bodyParser.json());

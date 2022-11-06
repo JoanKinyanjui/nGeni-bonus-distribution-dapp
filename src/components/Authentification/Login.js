@@ -58,7 +58,7 @@ const Login = (props) => {
         onSubmit={onHandleSubmit}
         container
         maxWidth="xl"
-        className="bg-blue-50 w-screen h-screen grid grid-cols-1  place-content-center space-y-6 md:space-y-10"
+        className="bg-red-50 w-screen h-screen grid grid-cols-1  place-content-center space-y-6 md:space-y-10"
       >
         <p className="mx-auto text-black text-2xl md:text-3xl font-sans">
           LOGIN{" "}
@@ -96,7 +96,7 @@ const Login = (props) => {
           value="Login"
           class="
         py-2 px-8
-        bg-blue-500
+        bg-red-500
         hover:bg-primary-darker
         rounded
         text-white 
@@ -106,7 +106,7 @@ const Login = (props) => {
         whitespace-nowrap
         "
         />
-        <label className="mx-auto text-slate-600 ">
+        <label className="mx-auto text-red-500 ">
           <input
             type="checkbox"
             // checked={checked}
@@ -116,7 +116,7 @@ const Login = (props) => {
           Remember me
         </label>
 
-        <p className="mx-auto text-slate-600 text-base">
+        <p className="mx-auto text-red-500 text-base">
           No Account? <Link to="/signup">Create account</Link>
         </p>
       </form>
