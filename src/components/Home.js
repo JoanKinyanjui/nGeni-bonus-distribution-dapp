@@ -13,7 +13,6 @@ import { ConnectWallet } from "@thirdweb-dev/react";
 import '../styles/global.css'
 import { Button } from '@mui/material';
 
-
 function Home({employees}) {
 
   return (
@@ -41,7 +40,7 @@ function Home({employees}) {
                    {person.address.slice(0,7) +"..."}
                   </TableCell>
                   <TableCell  align="center">{person.amount}</TableCell>
-                  <TableCell  align="center"><Button  startIcon={<DeleteIcon />}></Button></TableCell>
+                  <TableCell  align="center"><Button   startIcon={<DeleteIcon />}></Button></TableCell>
                 </TableRow>
               ))}
             </TableBody>

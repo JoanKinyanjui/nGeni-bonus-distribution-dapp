@@ -1,72 +1,133 @@
 import React, { useEffect, useState, } from 'react';
+
 import MaterialTable from 'material-table';
 import '../styles/global.css';
 import { Button } from '@mui/material';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import { Container } from '@mui/system';
 import { Link } from 'react-router-dom';
-import { ConnectWallet } from "@thirdweb-dev/react";
-
-
+import {ethers} from 'ethers';
+import {CONTRACT_ADDRESS, CONTRACT_ABI} from './constants';
 
 
 function App() {
+  const [data,setData] = useState("")
+  const [account,setAccount] = useState("")
+  const [balance,setBalance] = useState('')
 
+  const connectWallet = async () => {
+    const addressArray = await window.ethereum.request({
+      method: "eth_requestAccounts"
+    });
+    const add = addressArray[0];
+    setAccount(
+      String(add).substring(0, 5) + "..." + String(add).substring(38)
+    );
+  };
+  // useEffect(() => {
+  //   connectWallet();
+  // }, []);
 
 const [employees,setEmployees] = useState([]);
+const [emplyeeAmounts, setEmployeeAmounts] = useState([]);
+const [employeeAddressses, setEmployeeAddreses] = useState([]);
+const contractAddress = CONTRACT_ADDRESS;
+const contractAbi = CONTRACT_ABI;
+
+useEffect(()=>{
+  getEmployees()
+},[])
     
 const getEmployees = async()=>{
          const response= await fetch('http://localhost:8000/employees')
           
           const people = await response.json()
           setEmployees(people)
-          console.log(employees)
         }
-        getEmployees()
 
-console.log(employees)
   const columns = [
     { title: "ID", field: "id", editable: false },
-    { title: "Name", field: "name" },
-    { title: "Wallet-address", field: "address" },
+    { title: "Name", field: "name", editable: false },
+    { title: "Wallet-address", field: "address", editable: false },
     { title: "Amount", field: 'amount', },
   ]
 
 //OnClick Send
-const onClickSend =async()=>{
-
-}
-//Get Addresses and Amounts
-function callData(){
+const onBulkSend = async()=>{
   let allAddresses=[];
   let allAmounts=[];
  
-  let modifiedArr = employees.map(function(element){
+  let modifiedArr = await employees.map(function(element){
     allAddresses.push(element.address);
     allAmounts.push(element.amount);
   });
-
-  console.log(allAddresses);
-  console.log(allAmounts);;
+  await setEmployeeAddreses(allAddresses);
+  await setEmployeeAmounts(allAmounts);
+sendTo()
+}
+const sendTo = async () => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  // let amount = 2;
+  // const priceFormatted = ethers.utils.parseEther(amount.toString());
+  let contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
+  // const balance = await provider.getBalance("ethers.eth");
+  // ethers.utils.formatEther(balance);
+  // console.log(balance);
+  let tx = await contract.batchTransfer(employeeAddressses,emplyeeAmounts);
+  await tx.wait();
+  console.log('successful');
 }
 
-callData();
+//Get Transaction History
+const getHistory = async () => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  let contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI,signer);
+  let tx1 = await contract.getArr();
+  tx1.wait();
+  setData(tx);
+  console.log(data,'successful');
+}
 
- 
-
+//Get Smart Contract Balance
+const getBalance = async()=>{
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  let contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI,signer);
+  let tx2 = await contract.getSmartContractTokenBalance();
+  tx2.wait();
+  setBalance(tx);
+  console.log(data,'successful');
+}
 
   return (
 
     <div className="App">
  <div className='bg-black w-screen  flex'>
   <Container maxWidth="xl" className="">
-    <div className='py-4 text-3xl text-sans w-full md:w-full font-bold '><p className='text-red-500 place-content-left md:place-content-center  grid'>NGENI BONUS DAPP</p></div>
-    <div className='w-full md:w-full bg-green flex place-content-between py-2'>
-    <Link to="/history" >
-       <button className='text-red-500'>Transaction History</button>
+    <div className='py-4 text-3xl text-sans w-full font-bold flex place-content-between '>
+      <p className='text-red-500 '>NGENI BONUS DAPP</p>
+      <button onClick={getBalance} className='text-red-500 '>Contract Balance</button>
+    </div>
+    <div className='w-full bg-green flex place-content-between py-2'>
+      <div className='text-red-500'>
+      <button className='text-red-500'>Transaction History</button>
+      </div>
+    <Link to="/history" state={employees} >
+       <button className='text-red-500'>set Admin</button>
        </Link>
       <div>
-      <ConnectWallet accentColor="#ef4444" colorMode="dark" />
+      {account ? (
+            <button  className='text-red-500'>{account}</button>
+          ) : (
+            <button className='text-red-500' onClick={connectWallet}>
+              {"Connect wallet "}
+            </button>
+          )}
+
+
+        {/* {<button className='text-white' onClick={connectWallet()}>Connect Wallet</button> } */}
       </div>
     </div>
   </Container>
@@ -112,9 +173,18 @@ callData();
       />
 
       <div className='w-screen  grid place-items-center h-25  py-8'>
-        <button onClick={onClickSend} variant='contained' className='py-2 px-4 bg-red-500 rounded-md' >Bulk Send</button>
+      
+      {account ? (
+            <button onClick={()=>
+              (onBulkSend())} className="text-black">{"Bulk Send"}</button>
+          ) : (
+            <button className="text-black" onClick={()=>connectWallet()}>
+              {"connect Wallet"}
+            </button>
+          )}
 
       </div>
+      <button onClick={getHistory}>  Get History</button>
     </div>
   );
 }

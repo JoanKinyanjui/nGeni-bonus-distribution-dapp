@@ -12,7 +12,6 @@ const activeChainId = ChainId.Goerli;
 
 function App(){
   return (
-    <ThirdwebProvider desiredChainId={activeChainId}>
 
 <>
 <Router>
@@ -28,7 +27,6 @@ function App(){
 </div>
 </Router>
 </>
-</ThirdwebProvider>
 
   );
 }

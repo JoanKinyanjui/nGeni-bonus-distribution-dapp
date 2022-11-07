@@ -55,14 +55,11 @@ const onSubmitHandler = async(e)=>{
         }),
       });
   
-      // let { msg, success } = await response.json();
-      // console.log({
-      //   msg,
-      //   success,
-      // })
-  
-  
 }
+
+// const onDelete=(id)=>{
+// employees.splice(id,1)
+// }
 
   return (
     <div className="w-screen block">
@@ -121,7 +118,7 @@ className='outline-none bg-slate-50 py-4 px-8 rounded-sm'
 </Container>
       {/* </Container> */}
 
-<Home employees= {employees} />
+<Home employees= {employees}  />
 
 </div>
   );
