@@ -25,6 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+
 //Connect to MongoDB...
 connectDB();
 mongoose.connection.once("open",()=>{
@@ -58,7 +59,7 @@ return res.status(500).json({
 });
 
 // //Authenticate HR...
-app.post('/Login', function(req, res) {
+app.post('/login', function(req, res) {
   const { username, password } = req.body;
 
   User.findOne({ username }, function(err, user) {
@@ -158,5 +159,16 @@ let employees = Bonus.find({},function(err,product){
      return    res.json(product)
     }
 })
+});
+
+//Delete an employee
+app.get('/employees/:id',async (req, res) => {
+  console.log('hae')
+try{
+  await Bonus.deleteOne({_id:req.params.id})
+  res.json({msg:'User Deleted Successfully',success:true})
+}catch(error){
+  res.status(500).json({msg:"Something wrong happened,try deleting later",success:false})
+}
 });
 

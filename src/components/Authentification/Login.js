@@ -43,7 +43,6 @@ const Login = (props) => {
     if (success) {
       // navigate to PayUp page
       navigate("/payup");
-      console.log(window.location)
      
     } else {
       window.alert(msg);

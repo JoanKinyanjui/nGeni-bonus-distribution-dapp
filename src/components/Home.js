@@ -7,13 +7,22 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { red } from '@mui/material/colors';
 
 
 import '../styles/global.css'
 import { Button } from '@mui/material';
 
 function Home({employees}) {
+
+  const onDelete = async (id) => {
+try{
+  const response= await fetch(`http://localhost:8000/employees/${id}`)
+  console.log(response.json())
+}catch(error){
+  console.log(error)
+}
+  };
 
   return (
    
@@ -30,7 +39,7 @@ function Home({employees}) {
             <TableBody>
               {employees.map((person) => (
                 <TableRow
-                  key={person.id}
+                  key={person._id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                      <TableCell align="center" component="th" scope="row">
@@ -40,7 +49,7 @@ function Home({employees}) {
                    {person.address.slice(0,7) +"..."}
                   </TableCell>
                   <TableCell  align="center">{person.amount}</TableCell>
-                  <TableCell  align="center"><Button   startIcon={<DeleteIcon />}></Button></TableCell>
+                  <TableCell  align="center"><Button onClick={()=>onDelete(person._id)}  startIcon={<DeleteIcon sx={{ color: red[300] }} />}></Button></TableCell>
                 </TableRow>
               ))}
             </TableBody>

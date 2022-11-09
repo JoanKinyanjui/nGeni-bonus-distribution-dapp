@@ -7,6 +7,7 @@ import History from './components/History';
 import Main from './components/Main';
 import PayUp from './components/payUp';
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
+import Settings from './components/Settings';
 
 const activeChainId = ChainId.Goerli;
 
@@ -23,6 +24,7 @@ function App(){
     <Route exact path='/login'  element={<Login />}/>
     <Route exact path='/signup'  element={<SignUp />}/>
     <Route exact path='/history'  element={<History />}/>
+    <Route exact path='/settings'  element={<Settings />}/>
 </Routes>
 </div>
 </Router>

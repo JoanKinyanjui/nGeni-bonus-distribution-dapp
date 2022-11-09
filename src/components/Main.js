@@ -10,7 +10,7 @@ import PayUp from './payUp';
 function Main() {
   const [name,setName] = useState('');
   const [address,setAddress] = useState('');
-  const [amount,setAmount] = useState('');
+  const [amount,setAmount] = useState(0);
   const [employees,setEmployees] = useState([]);
 
 
@@ -22,8 +22,8 @@ function Main() {
     setAddress(e.target.value)
   }
 
-  const onHandleAmountChange =(e)=>{
-    setAmount(e.target.value)
+  const onHandleAmountChange =()=>{
+    // setAmount(e.target.value)
   }
 
 useEffect(()=>{
@@ -82,7 +82,7 @@ const onSubmitHandler = async(e)=>{
 <div className='w-screen mx-auto flex py-8'>
 <label className='text-base mr-8 w-36' >Name:</label>
 <input 
-className='outline-none bg-slate-50 py-4 px-8 rounded-sm '
+className='outline-none bg-red-50 py-4 px-8 rounded-sm '
   type="text"
   name="name"
   onChange={onHandleNameChange}
@@ -93,7 +93,7 @@ className='outline-none bg-slate-50 py-4 px-8 rounded-sm '
 <div className='w-screen mx-auto flex py-8'>
 <label className='text-base mr-8 w-36' >Wallet_Address:</label>
 <input 
-className='outline-none bg-slate-50 py-4 px-8 rounded-sm'
+className='outline-none bg-red-50 py-4 px-8 rounded-sm'
   type="text"
   name="address"
   onChange={onHandleAddressChange}
@@ -104,7 +104,7 @@ className='outline-none bg-slate-50 py-4 px-8 rounded-sm'
 <div className='w-screen mx-auto flex py-8'>
 <label className='text-base mr-8 w-36' >Amount:</label>
 <input 
-className='outline-none bg-slate-50 py-4 px-8 rounded-sm'
+className='outline-none bg-red-50 py-4 px-8 rounded-sm'
   type="text"
   name="amount"
   onChange={onHandleAmountChange}
