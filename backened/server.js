@@ -122,9 +122,10 @@ app.post('/login', function(req, res) {
 app.get('/checkToken', withAuth, function(req, res) {
   return res.statusCode(200).json({
     success:true,
-    msg:"success"});
-      // res.sendStatus(200);
+    msg:"success"
+  });
 });
+
 //Post an employee
 app.post('/add', (req, res) => {
   // console.log(req.body)

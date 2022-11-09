@@ -40,7 +40,7 @@ getEmployees()
 //Post data...
 const onSubmitHandler = async(e)=>{
   e.preventDefault();
-  setAmount('')
+  // setAmount('')
   setName('')
   setAddress('')
   let response = await fetch("http://localhost:8000/add", {
@@ -107,7 +107,7 @@ className='outline-none bg-red-50 py-4 px-8 rounded-sm'
 className='outline-none bg-red-50 py-4 px-8 rounded-sm'
   type="text"
   name="amount"
-  onChange={onHandleAmountChange}
+  // onChange={onHandleAmountChange}
   value={amount}
   />
   </div>
