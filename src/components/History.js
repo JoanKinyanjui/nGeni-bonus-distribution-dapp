@@ -1,15 +1,35 @@
-import * as React from 'react';
+import React,{useEffect,useState} from 'react';
 import Table from 'react-bootstrap/Table';
 import { Link, useLocation } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 import {ethers, utils} from 'ethers';
+import { Alchemy, Network } from "alchemy-sdk";
 
 
 function History() {
-  const location = useLocation();
-  const history = location.state;
-console.log(history);
+  const [history,setHistory] = useState([])
+//   const location = useLocation();
+//   const history = location.state;
+// console.log(history);
 
+useEffect(()=>{
+  const config = {
+    apiKey: "zBso5VaCDfXiyBQlZ5J9RvJdEm2NGa1l",
+    network: Network.ETH_GOERLI,
+  };
+  const alchemy = new Alchemy(config);
+  
+  const getHistory =async ()=>{
+    const historyData = await alchemy.core.getAssetTransfers({
+      fromBlock: "0x0",
+      fromAddress: "0x921824BBBeee107c8DAc750163f673519AA364Aa",
+      category: ["erc20"],
+    });
+    setHistory(historyData.transfers)
+    console.log(historyData.transfers[0].rawContract.value);
+  }
+  getHistory()
+},[])
   return (
     <div>
       
@@ -31,9 +51,9 @@ console.log(history);
       <tbody className='text-sm '>
         {history.map((tranx)=>(
         <tr key={tranx.hash}>
-        <td>{tranx.hash}</td>
+        <td>{tranx.hash}</td>     
         <td>{tranx.to}</td>
-        <td>{ethers.utils.formatEther( tranx.rawContract.value)*10**18}</td>
+        <td>{ethers.utils.formatEther( tranx.rawContract.value)}</td>
       </tr>
         ))}
       

@@ -40,7 +40,8 @@ useEffect(()=>{
   getEmployees()
   getBalance()
   getTotal()
-  getHistory()
+  // console.log(employeeAddressses,emplyeeAmounts)
+  // getHistory()
 },[])
     
 const getEmployees = async()=>{
@@ -65,13 +66,15 @@ const onBulkSend = async()=>{
  
   let modifiedArr = await employees.map(function(element){
     allAddresses.push(element.address);
-    allAmounts.push(element.amount);
+    allAmounts.push(ethers.utils.parseEther((element.amount).toString(), "ethers"));
   });
-  await setEmployeeAddreses(allAddresses);
-  await setEmployeeAmounts(allAmounts);
-sendTo()
+   setEmployeeAddreses(allAddresses);
+   setEmployeeAmounts(allAmounts);
+// sendTo()
 
 }
+
+onBulkSend();
 const sendTo = async () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
@@ -81,11 +84,13 @@ const sendTo = async () => {
   // const balance = await provider.getBalance("ethers.eth");
   // ethers.utils.formatEther(balance);
   // console.log(balance);
+  console.log(employeeAddressses,emplyeeAmounts)
   let tx = await contract.batchTransfer(employeeAddressses,emplyeeAmounts);
   await tx.wait();
 
   console.log("hash", tx.hash);
   alert('Transfer successful');
+
 }
 
 //Get Transaction History
@@ -104,7 +109,7 @@ const getHistory =async ()=>{
     category: ["erc20"],
   });
   setHistory(historyData.transfers)
-  // console.log(historyData.transfers[0].rawContract.value);
+  console.log(historyData.transfers[0].rawContract.value);
 }
 
 //Get Smart Contract Balance
@@ -252,8 +257,7 @@ setSum(total)
 
       <div className='w-screen  grid place-items-center h-25  py-8'>
       {account ? (
-              <button onClick={()=>
-                (onBulkSend())} className="text-red-500 bg-red-300 px-4 py-2 rounded-lg">{`Bulk Send`}</button>
+              <button onClick={sendTo} className="text-red-500 bg-red-300 px-4 py-2 rounded-lg">{`Bulk Send`}</button>
             ) : (
               <button className="text-red-500 bg-red-300 px-4 py-2 rounded-lg" onClick={()=>connectWallet()}>
                 {"Connect Wallet"}

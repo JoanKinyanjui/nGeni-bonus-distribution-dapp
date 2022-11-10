@@ -80,9 +80,9 @@ const onSubmitHandler = async(e)=>{
   <form onSubmit={onSubmitHandler} className=" mx-auto">
 
 <div className='w-screen mx-auto flex py-8'>
-<label className='text-base mr-8 w-36' >Name:</label>
+<label className='text-base  w-36' >Name:</label>
 <input 
-className='outline-none bg-red-50 py-4 px-8 rounded-sm '
+className='outline-none bg-red-50 py-2 rounded-sm '
   type="text"
   name="name"
   onChange={onHandleNameChange}
@@ -91,9 +91,9 @@ className='outline-none bg-red-50 py-4 px-8 rounded-sm '
   </div>
 
 <div className='w-screen mx-auto flex py-8'>
-<label className='text-base mr-8 w-36' >Wallet_Address:</label>
+<label className='text-base  w-36' >Wallet_Address:</label>
 <input 
-className='outline-none bg-red-50 py-4 px-8 rounded-sm'
+className='outline-none bg-red-50 py-2  rounded-sm'
   type="text"
   name="address"
   onChange={onHandleAddressChange}
@@ -102,12 +102,11 @@ className='outline-none bg-red-50 py-4 px-8 rounded-sm'
   </div>
 
 <div className='w-screen mx-auto flex py-8'>
-<label className='text-base mr-8 w-36' >Amount:</label>
+<label className='text-base  w-36' >Amount:</label>
 <input 
-className='outline-none bg-red-50 py-4 px-8 rounded-sm'
+className='outline-none bg-red-50 py-2  rounded-sm'
   type="text"
   name="amount"
-  // onChange={onHandleAmountChange}
   value={amount}
   />
   </div>
